@@ -4,7 +4,6 @@ require 'sinatra'
 require 'nokogiri'
 require 'maruku'
 require 'dm-core'
-require 'dm-mysql-adapter'
 
 # Make Sinatra work with .scss sass files
 configure do
@@ -15,6 +14,7 @@ end
 # While developing we don't want to keep restarting Sinatra
 # Also setup the data mapper
 configure :development do
+  require 'dm-mysql-adapter'
   require "sinatra/reloader"
   DataMapper.setup(:default, {
     :adapter  => 'mysql',
@@ -26,6 +26,7 @@ end
 
 # Different database for production
 configure :production do
+  require 'dm-postgres-adapter'
   DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite3://booksale.db')
 end
 
