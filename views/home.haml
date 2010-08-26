@@ -1,0 +1,45 @@
+!!! 5
+%html
+	%head
+		%title Jim's Book Sale
+		!= haml(:"_head", :layout => false)
+	%body
+		#header
+			%h1
+				%a{:href => "/"} Jim's Book Sale
+			#blurb
+				:markdown
+					I'm getting rid of all my books to finance a Kindle purchase. Everything's at rock bottom 
+					prices and in great condition. No haggling for individual books but if you want to buy two 
+					or more we can cut a deal. I'm happy to ship at your expense but unless 
+					you're buying a number of books it's probably not worth your while.
+				
+					To buy email me at [jimwhimpey@me.com](mailto:jimwhimpey@me.com)
+		#books
+			%ul
+				- @books.each do |book|
+					%li
+						- if (book.sold == "true") then
+							%p{:class => "sold"} Sold!
+							%div{:class => "photo"}
+								%img{:src => "http://static.jimwhimpey.com/images/booksale/thumbnails/#{book.photo}"}
+							%del
+								%h2=book.title
+								%p{:class => "author"}
+									%span by
+									#{book.author}
+								%p{:class => "type"}
+									#{book.type} in #{book.condition} condition
+								%p{:class => "price"} $#{book.price}
+						- else
+							%a{:class => "photo", :href => "/book/#{book.id}"}
+								%img{:src => "http://static.jimwhimpey.com/images/booksale/thumbnails/#{book.photo}"}
+							%h2
+								%a{:href => "/book/#{book.id}"}=book.title
+							%p{:class => "author"}
+								%span by
+								#{book.author}
+							%p{:class => "type"}
+								#{book.type} in #{book.condition} condition
+							%p{:class => "price"} $#{book.price}
+		!= haml(:"_footer", :layout => false)

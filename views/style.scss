@@ -1,0 +1,308 @@
+// ==========================================
+// Import fonts
+
+@font-face { font-family: "ComicZine"; src: url("/fonts/ComicZine.otf"); }
+@font-face { font-family: "Droid"; src: url('/fonts/DroidSerif-Regular.ttf'); } 
+@font-face { font-family: "Droid Italic"; src: url('/fonts/DroidSerif-Italic.ttf'); }
+@font-face { font-family: "Droid Bold"; src: url('/fonts/DroidSerif-Bold.ttf'); } 
+@font-face { font-family: "Droid Bold Italic"; src: url('/fonts/DroidSerif-BoldItalic.ttf'); }
+
+
+// ==========================================
+// Reset everything
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; } body { line-height: 1; } ol, ul { list-style: none; } blockquote, q { quotes: none; } :focus { outline: 0; } ins { text-decoration: none; } del { text-decoration: line-through; } table { border-collapse: collapse; border-spacing: 0; }
+
+
+// ==========================================
+// SASS stuff for use later
+
+@mixin border-radius($radius) {
+	border-radius: $radius;
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+}
+
+@mixin box-shadow($props) {
+	-moz-box-shadow: $props;
+  -webkit-box-shadow: $props;
+  box-shadow: $props;
+}
+
+$pink: #DB6EA8;
+
+// ==========================================
+// Body and site wide wrappers
+
+body {
+	background: #EEE;
+	font-family: Helvetica, Verdana, sans-serif;
+	width: 1080px;
+	margin: 0 auto;
+	a { text-decoration: none; }
+	a:hover { border-bottom: 1px solid #666; }
+}
+
+del { text-decoration: line-through; }
+
+
+// ==========================================
+// Header
+
+@mixin bottom-border() {
+	border: { bottom: 1px solid #CCC; }
+}
+
+#header {
+	padding: 50px 0;
+	line-height: 1.6em;
+	h1 {
+		font: {
+			family: "ComicZine", Helvetica, sans-serif;
+			size: 60px;
+		};
+		padding: 0 0 20px 0;
+		margin: 0 0 20px 0;
+		@include bottom-border;
+		a {
+			color: #000;
+			&:hover {
+				border-bottom: none;
+				color: $pink;
+			}
+		}
+	}
+	#blurb {
+		@include bottom-border;
+		p {
+			margin: 0 0 15px 0;
+			color: #444;
+			font: {
+				family: "Droid", Georgia, serif;
+				size: 16px;
+			};
+			&:last-child { margin: 0 0 20px 0; }
+			a { 
+				color: #000;
+				font: {
+					family: "Droid Bold", Georgia, serif;
+					size: 16px;
+				};
+			}
+		}
+	}
+}
+
+// ==========================================
+// Book listings
+
+#books {
+	ul {
+		font: {
+			family: "Droid", Georgia, serif;
+		};
+		line-height: 1.2em;
+		li {
+			position: relative;
+			width: 200px;
+			height: 330px;
+			float: left;
+			margin: 0 20px 20px 0;
+			&:nth-child(5n) { margin: 0 0 20px 0; }
+			.photo {
+				display: block;
+				width: 194px;
+				height: 194px;
+				img {
+					border: 3px solid #000;
+					width: 194px;
+					height: 194px;
+				}
+			}
+			a.photo:hover {
+				border-bottom: none;
+			 	img { 
+					@include box-shadow(0 0 10px #000);
+				}
+			}
+			h2 {
+				margin: 11px 0 0 0;
+				font: {
+					family: "Droid Bold", Georgia, serif;
+					size: 14px;
+				};
+				a { color: #000; }
+			}
+			p.author {
+				font: {
+					family: "Droid Italic", Georgia, serif;
+					size: 13px;
+				};
+				margin: 0 0 8px 0;
+				span { font-family: "Droid", Georgia, serif; }
+			}
+			p.type, p.description {
+				font-size: 13px;
+			}
+			p.type { margin: 0 0 8px 0; }
+			p.price {
+				$price: #333;
+				position: absolute;
+				top: -7px;
+				left: -7px;
+				width: 34px;
+				height: 29px;
+				padding: 7px 0 0 0;
+				background: $price;
+				text-align: center;
+				font: {
+					family: "Helvetica Neue", Helvetica, sans-serif;
+					weight: bold;
+					size: 16px;
+				};
+				color: #FFF;
+				@include box-shadow(0 0 10px #666);
+				border: 2px solid #000;
+				@include border-radius(20px);
+			}
+		}
+	}
+}
+
+
+// ==========================================
+// Sold State
+
+p.sold {
+	position: absolute;
+	top: 80px;
+	left: 0;
+	width: 200px;
+	padding: 6px 0;
+	background: #990E20;
+	border: {
+		top: 3px solid #000;
+		bottom: 3px solid #000;
+	};
+	font: {
+		family: "Helvetica Neue", Helvetica, sans-serif;
+		weight: bold;
+		size: 18px;
+	};
+	letter-spacing: 0.2em;
+	text-align: center;
+	text-transform: uppercase;
+	color: #FFF;
+}
+
+
+// ==========================================
+// Individual Book
+
+#book {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	padding: 0 0 50px 0;
+	font: {
+		family: "Droid", Georgia, serif;
+	};
+	p.sold {
+		top: 280px;
+		font-size: 30px;
+		width: 606px;
+	}
+	#photo {
+		float: left;
+		width: 600px;
+		height: 600px;
+		a {
+			display: block;
+			img {
+				width: 600px;
+				height: 600px;
+				border: 3px solid #000;
+			}
+			&:hover { border-bottom: none; }
+		}
+	}
+	#details {
+		width: 440px;
+		float: right;
+		h2 {
+			font: {
+				family: "Droid Bold", Georgia, serif;
+				size: 30px;
+			};
+			margin: 0 0 5px 0;
+		}
+		.author {
+			font: {
+				family: "Droid Italic", Georgia, serif;
+				size: 18px;
+			};
+			margin: 0 0 30px 0;
+			span { font-family: "Droid", Georgia, serif; }
+		}
+		.type, .description {
+			margin: 0 0 30px 0;
+		}
+		.price {
+			margin: 0 0 30px;
+			span {
+				height: 29px;
+				padding: 3px 5px 3px 7px;
+				background: #333;
+				text-align: center;
+				letter-spacing: 0.2em;
+				font: {
+					family: "Helvetica Neue", Helvetica, sans-serif;
+					weight: bold;
+					size: 20px;
+				};
+				color: #FFF;
+				border: 2px solid #000;
+				@include border-radius(10px);
+			}
+		}
+		.more {
+			font-size: 14px;
+			a { color: blue; }
+		}
+	}
+}
+
+
+		
+// ==========================================
+// Footer
+
+#footer {
+	clear: both;
+	text-align: right;
+	padding: 20px 0 40px 0;
+	border: { top: 1px solid #CCC; };
+	font: {
+		family: "Droid Italic", Georgia, serif;
+		size: 14px;
+	};
+	color: #444;
+	a {
+		color: #000;
+	}
+}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
