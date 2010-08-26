@@ -1,0 +1,6 @@
+sinatra
+nokogiri
+maruku
+haml --version 3.0.0.rc.2
+dm-core
+dm-mysql-adapter
