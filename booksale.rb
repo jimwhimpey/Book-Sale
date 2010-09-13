@@ -52,7 +52,7 @@ end
 get '/' do
   
   # Get all the books
-  @books = repository(:default).adapter.select('SELECT * FROM books ORDER BY author')
+  @books = repository(:default).adapter.select("SELECT * FROM books WHERE sold = 'false' ORDER BY author")
   
   # Render HAML template
   haml :home
